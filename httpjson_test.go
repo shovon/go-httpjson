@@ -10,6 +10,8 @@ import (
 
 func testFn(fn responseFn, expectedStatus int, t *testing.T) {
 	rr := httptest.NewRecorder()
+
+	expectedContentType := "application/json"
 	expected, e := json.Marshal(map[string]string{"foo": "bar"})
 
 	if e != nil {
@@ -33,6 +35,16 @@ func testFn(fn responseFn, expectedStatus int, t *testing.T) {
 			"Expected status code to be %d, but got %d\n",
 			expectedStatus,
 			result.StatusCode,
+		)
+		t.Fail()
+	}
+
+	contentType := result.Header.Get("Content-Type")
+	if contentType != expectedContentType {
+		fmt.Printf(
+			"Expected content type to be %s, but got %s\n",
+			expectedContentType,
+			contentType,
 		)
 		t.Fail()
 	}
