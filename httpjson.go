@@ -7,6 +7,7 @@ import (
 )
 
 func writeJSON(w http.ResponseWriter, v interface{}, status int) {
+	w.Header().Set("Content-Type", "application/json")
 	result, e := json.Marshal(v)
 	if e != nil {
 		w.WriteHeader(500)
