@@ -1,3 +1,4 @@
+// Package httpjson allows you to respond with JSON to the client.
 package httpjson
 
 import (
